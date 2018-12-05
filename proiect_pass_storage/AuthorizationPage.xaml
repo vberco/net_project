@@ -1,0 +1,22 @@
+﻿<Window x:Class="proiect_pass_storage.AuthorizationPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:proiect_pass_storage"
+        mc:Ignorable="d"
+        Title="AuthorizationPage" Height="300" Width="300">
+    <Grid>
+        <Grid Margin="10,0,10,10" Height="250" VerticalAlignment="Bottom">
+            <Label x:Name="passInfoLabel" Content="Hi bro, please authorize!" Height="33" Margin="50,10,50,0" VerticalAlignment="Top"/>
+            <Button x:Name="buttonApply" Content="APPLY&#xD;&#xA;" Margin="62,0,63,10" Height="25" VerticalAlignment="Bottom"/>
+            <TextBox x:Name="usernameBox" PreviewMouseDown="TextBox_MouseDown" Margin="81,109.507,10,118.493" TextWrapping="Wrap" Visibility="Collapsed"/>
+            <CheckBox x:Name="checkBoxCreateNewAcc"  Content="create new account" Margin="10,36.667,133.58,0" VerticalAlignment="Top" Height="20.96"/>
+            <PasswordBox x:Name="passwordBox" Margin="81,0,10,93.693" VerticalAlignment="Bottom" PreviewMouseDown="TextBox_MouseDown"/>
+            <Label x:Name="labelName" Content="Name&#xD;&#xA;&#xD;&#xA;" HorizontalAlignment="Left" Margin="3.993,105.547,0,0" VerticalAlignment="Top" Width="66" Height="25.96"/>
+            <Label x:Name="labelPassword" Content="Password" HorizontalAlignment="Left" Margin="3.993,0,0,87.533" Width="66" VerticalAlignment="Bottom"/>
+            <ComboBox x:Name="selectUser" Margin="81,105.547,10,120.493" d:LayoutOverrides="Height" Loaded="LoginComboboxLoaded" />
+            <Label x:Name="errorLabel" Content="" Margin="10,0,10,56.573" VerticalAlignment="Bottom"/>
+        </Grid>
+    </Grid>
+</Window>

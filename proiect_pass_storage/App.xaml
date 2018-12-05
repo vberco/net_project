@@ -1,0 +1,9 @@
+﻿<Application x:Class="proiect_pass_storage.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:proiect_pass_storage"
+             StartupUri="AuthorizationPage.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

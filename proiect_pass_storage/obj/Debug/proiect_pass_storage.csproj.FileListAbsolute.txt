@@ -1,0 +1,16 @@
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\bin\Debug\proiect_pass_storage.exe.config
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\bin\Debug\proiect_pass_storage.exe
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\bin\Debug\proiect_pass_storage.pdb
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\AuthorizationPage.g.cs
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\MainWindow.g.cs
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\App.g.cs
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\proiect_pass_storage_MarkupCompile.cache
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\proiect_pass_storage_MarkupCompile.lref
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\AuthorizationPage.baml
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\MainWindow.baml
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\proiect_pass_storage.g.resources
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\proiect_pass_storage.Properties.Resources.resources
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\proiect_pass_storage.csproj.GenerateResource.Cache
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\proiect_pass_storage.exe
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\proiect_pass_storage.pdb
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\proiect_pass_storage.csprojResolveAssemblyReference.cache
