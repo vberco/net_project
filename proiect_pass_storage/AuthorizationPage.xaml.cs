@@ -12,11 +12,12 @@ namespace proiect_pass_storage {
     public partial class AuthorizationPage : Window {
         private const string DIRECTORY_PATH = "D:\\pass_app_directory";
         private const string PASSPHRASE = "You never kill the sun!";
-        private Dictionary<string, string> usersNames;
+        private List<string> usersNames;
 
         public AuthorizationPage()
         {
             InitializeComponent();
+            usersNames = new List<string>();
             var files = checkStorageForFiles();
             if (files.Count() == 0) {
                 passInfoLabel.Content = "Create new user";
@@ -27,7 +28,7 @@ namespace proiect_pass_storage {
 
             }
             else {
-                usersNames = getUsernames(files);
+                setUsersNames(files);
                 checkBoxCreateNewAcc.Checked += new RoutedEventHandler(AddNewUserAction);
                 checkBoxCreateNewAcc.Unchecked += new RoutedEventHandler(AddNewUserAction);
             }
@@ -48,21 +49,20 @@ namespace proiect_pass_storage {
             if ((bool)checkBoxCreateNewAcc.IsChecked)
             {
                 name = usernameBox.Text;
-                if (usersNames != null && usersNames.ContainsKey(name)) {
+                if (usersNames != null && usersNames.Contains(name)) {
                     displayErrors("user", "User with same name exist. Please choose other.");
                 }
                 else {
-                    var filePath = createUser(name, password.ToString());
-                    startApplication(password.ToString(), filePath);
+                    var data = createUser(name, password.ToString());
+                    startApplication(data);
                 }
             }
             else {
                 name = selectUser.Text;
-                var fileName = Path.GetFileName(usersNames[name]);
-                var hash = Path.ChangeExtension(fileName.Split('_')[1], null);
-                var isCorrectPassword = PasswordHasher.Verify(password, hash);
+                var userData = getUserData(name, password);
+                var isCorrectPassword = PasswordHasher.Verify(password, userData.credentials.Password);
                 if (isCorrectPassword) {
-                    startApplication(password.ToString(), usersNames[name]);
+                    startApplication(userData);
                 }
                 else {
                     displayErrors("password", "Incorrect password, try again please!");
@@ -71,14 +71,29 @@ namespace proiect_pass_storage {
         }
 
         /// <summary>
+        /// Create user data from file.
+        /// </summary>
+        /// <param name="name">User name</param>
+        /// <param name="password">User password</param>
+        /// <returns>User data entity</returns>
+        private UserData getUserData(string name, string password)
+        {
+            var filePath = DIRECTORY_PATH + '/' + name + ".txt";
+            var encriptedString = File.ReadAllText(filePath);
+            var xmlString = StringEncription.Decrypt(encriptedString, password);
+
+            return SerializationManager.DeserializeUserData(xmlString);
+        }
+
+        /// <summary>
         /// Start main page and sent password as parameter.
         /// </summary>
         /// <param name="password">Password</param>
-        private void startApplication(string password, string filePath)
+        private void startApplication(UserData data)
         {
-            MainWindow main = new MainWindow(password.ToString(), filePath);
+            MainWindow main = new MainWindow(data);
             main.Show();
-            this.Close();
+            Close();
         }
 
         /// <summary>
@@ -123,26 +138,25 @@ namespace proiect_pass_storage {
         private void LoginComboboxLoaded(object sender, RoutedEventArgs e)
         {
             selectUser = sender as ComboBox;
-            selectUser.ItemsSource = usersNames.Keys;
-            selectUser.SelectedIndex = 0;
-            selectUser.Visibility = Visibility.Visible;
-            usernameBox.Visibility = Visibility.Collapsed;
+            if (usersNames != null && usersNames.Count != 0) {
+                selectUser.ItemsSource = usersNames;
+                selectUser.SelectedIndex = 0;
+                selectUser.Visibility = Visibility.Visible;
+                usernameBox.Visibility = Visibility.Collapsed;
+            }
         }
 
         /// <summary>
-        /// Function create a Dictionary with username as key and password hash as value.
+        /// Function initialize user names list.
         /// </summary>
-        /// <returns> Created dictionary</returns>
-        private Dictionary<string, string> getUsernames(string[] files)
+        /// <param name="files">Files from application directory</param>
+        private void setUsersNames(string[] files)
         {
-            Dictionary<string, string> usernames = new Dictionary<string, string>();
-            foreach (String filePath in files) {
+            foreach (var filePath in files) {
                 var fileName = Path.GetFileName(filePath);
-                var credentials = fileName.Split('_');
-                usernames.Add(credentials[0], filePath);
+                var username = Path.ChangeExtension(fileName, null);
+                usersNames.Add(username);
             }
-
-            return usernames;
         }
         
         /// <summary>
@@ -152,15 +166,23 @@ namespace proiect_pass_storage {
         /// <param name="name">User's input as name</param>
         /// <param name="password">User's password</param>
         /// <returns>Path to created file</returns>
-        private string createUser(string name, string password)
+        private UserData createUser(string name, string password)
         {
-            var hash = getPasswordHash(password);
-            string fileName = name + "_" + hash + ".txt";
-            string filePath = DIRECTORY_PATH + '/' + fileName;
-            FileInfo fi = new FileInfo(filePath);
-            fi.Create();
+            UserCredentials credentials = new UserCredentials();
+            credentials.Name = name;
+            credentials.Password = getPasswordHash(password);
+            UserData data = new UserData();
+            data.credentials = credentials;
 
-            return filePath;
+            var xmlString = SerializationManager.SerializeUserData(data);
+            string filePath = "";
+
+            if (xmlString != null && !xmlString.Equals("")) {
+                var encriptedString = StringEncription.Encrypt(xmlString, password);
+                filePath = DIRECTORY_PATH + '/' + name + ".txt";
+                File.WriteAllText(filePath, encriptedString);
+            }
+            return data;
         }
 
         /// <summary>
@@ -170,26 +192,7 @@ namespace proiect_pass_storage {
         /// <returns>Password hash</returns>
         private string getPasswordHash(string password)
         {
-            string hash = "";
-            Regex regex = null;
-            bool isValidName = false;
-            do {
-                hash = PasswordHasher.Hash(password, 1000);
-                isValidName = IsValidFilename(hash);
-            } while (!isValidName);
-
-            return hash;
-        }
-
-        /// <summary>
-        /// Check if hash can be used as part of the file name.
-        /// </summary>
-        /// <param name="fileName">Generated hash</param>
-        /// <returns>Is valid file name or not.</returns>
-        private bool IsValidFilename(string fileName) {
-            Regex containsABadCharacter = new Regex("["
-                  + Regex.Escape(new string(Path.GetInvalidFileNameChars())) + "]");
-            return containsABadCharacter.IsMatch(fileName) ? false : true;
+            return PasswordHasher.Hash(password, 1000);
         }
 
         /// <summary>
@@ -197,9 +200,7 @@ namespace proiect_pass_storage {
         /// </summary>
         private string[] checkStorageForFiles()
         {
-            var directoryExist = Directory.Exists(DIRECTORY_PATH);
-
-            if (directoryExist) {
+            if (Directory.Exists(DIRECTORY_PATH)) {
                 return Directory.GetFiles(DIRECTORY_PATH).OrderByDescending(d => new FileInfo(d).LastAccessTime).ToArray();
             }
             else {
@@ -218,5 +219,5 @@ namespace proiect_pass_storage {
             }
         }
     }
-
 }
+

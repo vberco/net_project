@@ -6,7 +6,20 @@
         xmlns:local="clr-namespace:proiect_pass_storage"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+    <Grid Margin="0,0,2,0">
+        <Button x:Name="buttonCreateResourse" Content="Create" HorizontalAlignment="Left" Height="42" Margin="50,32,0,0" VerticalAlignment="Top" Width="114"/>
+        <Button x:Name="buttonSearchPassword" Content="Search password" Height="42" Margin="205,32,206,0" VerticalAlignment="Top"/>
+        <Button x:Name="buttonViewAll" Content="View all" HorizontalAlignment="Right" Height="42" Margin="0,32,50,0" VerticalAlignment="Top" Width="110"/>
+        <Grid x:Name="gridCreatePassword" Visibility="Collapsed" Margin="22,102,21,45">
+            <Label x:Name="labelResourseName" Content="Resourse name" HorizontalAlignment="Left" Height="26" Margin="26,10,0,0" VerticalAlignment="Top" Width="108"/>
+            <TextBox x:Name="textBoxInputResourse" Height="23" Margin="152,13,151,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Label x:Name="labelPassword" Content="Password" HorizontalAlignment="Left" Margin="26,50,0,0" Width="96" Height="23" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBoxInputPassword" Margin="152,50,151,0" TextWrapping="Wrap" Height="23" VerticalAlignment="Top"/>
+            <Label x:Name="labelGeneratePassword" Content="Generate password:" Margin="152,0,186,51" Height="29" VerticalAlignment="Bottom"/>
+            <Label x:Name="labelPasswordLength" Content="Password length:" HorizontalAlignment="Left" Height="30.95" Margin="10,0,0,23.05" VerticalAlignment="Bottom" Width="99"/>
+            <Button x:Name="button" Content="Save" HorizontalAlignment="Right" Height="26" Margin="0,50,19,0" VerticalAlignment="Top" Width="82"/>
+            <TextBox x:Name="textBoxPasswordLenght" HorizontalAlignment="Left" Height="22.95" Margin="114,0,0,28.05" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="82"/>
+            <Button x:Name="buttonGeneratePassword" Content="Generate" HorizontalAlignment="Right" Height="22.95" Margin="0,0,19,28.05" VerticalAlignment="Bottom" Width="82"/>
+        </Grid>
     </Grid>
 </Window>

@@ -54,7 +54,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SerializationManager.cs" />
     <Compile Include="StringEncription.cs" />
+    <Compile Include="UserCredentials.cs" />
+    <Compile Include="UserData.cs" />
+    <Compile Include="UserResourse.cs" />
     <Page Include="AuthorizationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

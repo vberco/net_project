@@ -18,16 +18,19 @@ namespace proiect_pass_storage {
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
-        private string salt;
-        private string filePath;
+        private UserData data;
+
         public MainWindow() {
             InitializeComponent();
-
         }
-        public MainWindow(string salt, string filePath) {
+        public MainWindow(UserData data) {
             InitializeComponent();
-            this.salt = salt;
-            this.filePath = filePath;
+            this.data = data;
+            buttonCreateResourse.Click += ButtonCreateResourse_Click;
+        }
+
+        private void ButtonCreateResourse_Click(object sender, RoutedEventArgs e) {
+            gridCreatePassword.Visibility = Visibility.Visible;
         }
     }
 }
