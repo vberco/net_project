@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 namespace proiect_pass_storage {
     
     public partial class AuthorizationPage : Window {
-        private const string DIRECTORY_PATH = "D:\\pass_app_directory";
+        public static const string DIRECTORY_PATH = "D:\\pass_app_directory";
         private const string PASSPHRASE = "You never kill the sun!";
         private List<string> usersNames;
 
@@ -54,7 +54,7 @@ namespace proiect_pass_storage {
                 }
                 else {
                     var data = createUser(name, password.ToString());
-                    startApplication(data);
+                    startApplication(data, password);
                 }
             }
             else {
@@ -62,7 +62,7 @@ namespace proiect_pass_storage {
                 var userData = getUserData(name, password);
                 var isCorrectPassword = PasswordHasher.Verify(password, userData.credentials.Password);
                 if (isCorrectPassword) {
-                    startApplication(userData);
+                    startApplication(userData, password);
                 }
                 else {
                     displayErrors("password", "Incorrect password, try again please!");

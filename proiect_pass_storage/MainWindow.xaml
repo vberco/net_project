@@ -17,7 +17,7 @@
             <TextBox x:Name="textBoxInputPassword" Margin="152,50,151,0" TextWrapping="Wrap" Height="23" VerticalAlignment="Top"/>
             <Label x:Name="labelGeneratePassword" Content="Generate password:" Margin="152,0,186,63.9" Height="29" VerticalAlignment="Bottom"/>
             <Label x:Name="labelPasswordLength" Content="Pasword length:" HorizontalAlignment="Left" Height="27.85" Margin="10,0,0,31.05" VerticalAlignment="Bottom" Width="124" RenderTransformOrigin="0.396,1.486"/>
-            <Button x:Name="button" Content="Save" HorizontalAlignment="Right" Height="26" Margin="0,50,19,0" VerticalAlignment="Top" Width="82"/>
+            <Button x:Name="buttonSaveResourse" Content="Save" HorizontalAlignment="Right" Height="26" Margin="0,50,19,0" VerticalAlignment="Top" Width="82"/>
             <TextBox x:Name="textBoxPasswordLength" Height="22.95" Margin="155.993,0,234.007,31.05" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
             <Button x:Name="buttonGeneratePassword" Content="Generate" HorizontalAlignment="Right" Height="22.95" Margin="0,0,19,31.05" VerticalAlignment="Bottom" Width="82"/>
             <Label x:Name="errorLabel" Content="" Visibility="Collapsed" Margin="113,93,100,80"/>

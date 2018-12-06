@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace proiect_pass_storage {
     [Serializable]
    public class UserResourse {
-        private string resourseName { get; set; }
-        private string resoursePassword { get; set; }
+        public string ResourseName { get; set; }
+        public string ResoursePassword { get; set; }
     }
 }

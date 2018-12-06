@@ -11,6 +11,7 @@ namespace proiect_pass_storage {
         private const int PASSWORD_MIN_LENGTH = 8;
         private const int PASSWORD_MAX_LENGTH = 30;
         private const int NON_ALFANUMERIC_CHARACTER_LENGTH = 2;
+        private string password;
         public MainWindow() {
             InitializeComponent();
         }
@@ -19,12 +20,45 @@ namespace proiect_pass_storage {
         /// 
         /// </summary>
         /// <param name="data"></param>
-        public MainWindow(UserData data) {
+        public MainWindow(UserData data, string password) {
             InitializeComponent();
             this.data = data;
+            this.password = password;
             buttonCreateResourse.Click += ButtonCreateResourse_Click;
             buttonSearchPassword.Click += ButtonSearchPassword_Click;
             buttonGeneratePassword.Click += ButtonGeneratePassword_Click;
+            buttonSaveResourse.Click += ButtonSaveResourseClick_Click;
+        }
+
+        private void ButtonSaveResourseClick_Click(object sender, RoutedEventArgs e)
+        {
+            string textError = "";
+            if (textBoxInputResourse.Text.Equals("")) {
+                textError = "Resourse name cannot be empty.\n";
+            }
+            if (textBoxInputPassword.Text.Equals("")) {
+                textError += "Password field cannot be empty.";
+            }
+            
+            if (!textError.Equals("")) {
+                errorLabel.Text = textError;
+                errorLabel.Foreground = System.Windows.Media.Brushes.Red;
+                errorLabel.Visibility = Visibility.Visible;
+            }
+            else {
+                UserResourse resourse = new UserResourse();
+                resourse.ResourseName = textBoxInputResourse.Text;
+                resourse.ResoursePassword = textBoxInputPassword.Text;
+                data.Resourses.Add(resourse);
+                updateData(data);
+            }
+        }
+
+        private void updateData(UserData data) {
+            var serializedData = SerializationManager.SerializeUserData(data);
+            var encriptedString = StringEncription.Encrypt(serializedData, password);
+            var filePath = AuthorizationPage.DIRECTORY_PATH + '/' + data.Credentials.Name + ".txt";
+            File.WriteAllText(filePath, encriptedString);
         }
 
         /// <summary>
@@ -60,7 +94,7 @@ namespace proiect_pass_storage {
         }
 
         /// <summary>
-        /// 
+        /// Generate password while it match regular expression.
         /// </summary>
         /// <param name="passwordLength"></param>
         /// <param name="nonAlfaNumericLength"></param>
@@ -77,10 +111,10 @@ namespace proiect_pass_storage {
         }
 
         /// <summary>
-        /// 
+        /// Create random password.
         /// </summary>
-        /// <param name="length"></param>
-        /// <returns></returns>
+        /// <param name="length">Password length</param>
+        /// <returns>Created password</returns>
         private string getRandomPassword(int length) {
             string password = "";
             var random = new Random((int)DateTime.Now.Ticks);
@@ -98,7 +132,7 @@ namespace proiect_pass_storage {
             return password;
         }
         /// <summary>
-        /// 
+        /// Handle search password button click. 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

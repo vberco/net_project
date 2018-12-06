@@ -10,8 +10,8 @@ namespace proiect_pass_storage {
     [XmlRoot("UserData")]
     public class UserData {
 
-        public UserCredentials credentials {get; set; }
+        public UserCredentials Credentials {get; set; }
         [XmlArray("ResourseList"), XmlArrayItem(typeof(UserResourse), ElementName = "Resourse")]
-        public List<UserResourse> resourse { get; set; }
-}
+        public List<UserResourse> Resourses { get; set; }
+    }
 }
