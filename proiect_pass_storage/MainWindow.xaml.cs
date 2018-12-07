@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Text.RegularExpressions;
 using System;
+using System.IO;
 
 namespace proiect_pass_storage {
     /// <summary>
@@ -28,6 +29,8 @@ namespace proiect_pass_storage {
             buttonSearchPassword.Click += ButtonSearchPassword_Click;
             buttonGeneratePassword.Click += ButtonGeneratePassword_Click;
             buttonSaveResourse.Click += ButtonSaveResourseClick_Click;
+
+            DataContext = this;
         }
 
         private void ButtonSaveResourseClick_Click(object sender, RoutedEventArgs e)
@@ -41,7 +44,7 @@ namespace proiect_pass_storage {
             }
             
             if (!textError.Equals("")) {
-                errorLabel.Text = textError;
+                errorLabel.Content = textError;
                 errorLabel.Foreground = System.Windows.Media.Brushes.Red;
                 errorLabel.Visibility = Visibility.Visible;
             }
@@ -55,9 +58,9 @@ namespace proiect_pass_storage {
         }
 
         private void updateData(UserData data) {
-            var serializedData = SerializationManager.SerializeUserData(data);
+            var serializedData = new SerializationManager().SerializeUserData(data);
             var encriptedString = StringEncription.Encrypt(serializedData, password);
-            var filePath = AuthorizationPage.DIRECTORY_PATH + '/' + data.Credentials.Name + ".txt";
+            var filePath = data.Credentials.Name;
             File.WriteAllText(filePath, encriptedString);
         }
 
@@ -138,15 +141,28 @@ namespace proiect_pass_storage {
         /// <param name="e"></param>
         private void ButtonSearchPassword_Click(object sender, RoutedEventArgs e) {
             gridCreatePassword.Visibility = Visibility.Collapsed;
+            gridSearchPassword.Visibility = Visibility.Visible;
         }
 
         /// <summary>
-        /// 
+        /// Handle resourse create button click.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButtonCreateResourse_Click(object sender, RoutedEventArgs e) {
             gridCreatePassword.Visibility = Visibility.Visible;
+            gridSearchPassword.Visibility = Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// Handle TextBox mouse click to hide error label if is displayed.
+        /// </summary>
+        private void TextBox_MouseDown(object sender, RoutedEventArgs e) {
+            
+            if (errorLabel.Visibility == Visibility.Visible || labelNotFound.Visibility == Visibility.Visible) {
+                errorLabel.Visibility = Visibility.Collapsed;
+                labelNotFound.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

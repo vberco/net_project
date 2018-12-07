@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 namespace proiect_pass_storage {
     
     public partial class AuthorizationPage : Window {
-        public static const string DIRECTORY_PATH = "D:\\pass_app_directory";
+        private const string DIRECTORY_PATH = "D:\\pass_app_directory";
         private const string PASSPHRASE = "You never kill the sun!";
         private List<string> usersNames;
 
@@ -60,7 +60,7 @@ namespace proiect_pass_storage {
             else {
                 name = selectUser.Text;
                 var userData = getUserData(name, password);
-                var isCorrectPassword = PasswordHasher.Verify(password, userData.credentials.Password);
+                var isCorrectPassword = PasswordHasher.Verify(password, userData.Credentials.Password);
                 if (isCorrectPassword) {
                     startApplication(userData, password);
                 }
@@ -82,16 +82,16 @@ namespace proiect_pass_storage {
             var encriptedString = File.ReadAllText(filePath);
             var xmlString = StringEncription.Decrypt(encriptedString, password);
 
-            return SerializationManager.DeserializeUserData(xmlString);
+            return (new SerializationManager()).DeserializeUserData(xmlString);
         }
 
         /// <summary>
         /// Start main page and sent password as parameter.
         /// </summary>
         /// <param name="password">Password</param>
-        private void startApplication(UserData data)
+        private void startApplication(UserData data, string password)
         {
-            MainWindow main = new MainWindow(data);
+            MainWindow main = new MainWindow(data, password);
             main.Show();
             Close();
         }
@@ -168,18 +168,16 @@ namespace proiect_pass_storage {
         /// <returns>Path to created file</returns>
         private UserData createUser(string name, string password)
         {
+            string filePath = DIRECTORY_PATH + '/' + name + ".txt";
             UserCredentials credentials = new UserCredentials();
-            credentials.Name = name;
+            credentials.Name = filePath;
             credentials.Password = getPasswordHash(password);
             UserData data = new UserData();
-            data.credentials = credentials;
+            data.Credentials = credentials;
 
-            var xmlString = SerializationManager.SerializeUserData(data);
-            string filePath = "";
-
+            var xmlString = new SerializationManager().SerializeUserData(data);
             if (xmlString != null && !xmlString.Equals("")) {
                 var encriptedString = StringEncription.Encrypt(xmlString, password);
-                filePath = DIRECTORY_PATH + '/' + name + ".txt";
                 File.WriteAllText(filePath, encriptedString);
             }
             return data;
