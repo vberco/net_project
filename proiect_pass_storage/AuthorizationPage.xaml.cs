@@ -11,7 +11,6 @@ namespace proiect_pass_storage {
     
     public partial class AuthorizationPage : Window {
         private const string DIRECTORY_PATH = "D:\\pass_app_directory";
-        private const string PASSPHRASE = "You never kill the sun!";
         private List<string> usersNames;
 
         public AuthorizationPage()
@@ -59,12 +58,12 @@ namespace proiect_pass_storage {
             }
             else {
                 name = selectUser.Text;
-                var userData = getUserData(name, password);
-                var isCorrectPassword = PasswordHasher.Verify(password, userData.Credentials.Password);
-                if (isCorrectPassword) {
+                UserData userData = null;
+                try {
+                    userData = getUserData(name, password);
                     startApplication(userData, password);
                 }
-                else {
+                catch (Exception ex) {
                     displayErrors("password", "Incorrect password, try again please!");
                 }
             }

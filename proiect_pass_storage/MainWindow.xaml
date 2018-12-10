@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:proiect_pass_storage"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Icon="Images/lock.png"
+        Title="Password store" Height="400" Width="550">
     <Grid Margin="0,0,2,0">
         <Button x:Name="buttonCreateResourse" Content="Create" HorizontalAlignment="Left" Height="42" Margin="50,32,0,0" VerticalAlignment="Top" Width="114"/>
         <Button x:Name="buttonSearchPassword" Content="Search password" Height="42" Margin="205,32,206,0" VerticalAlignment="Top"/>
@@ -24,19 +25,31 @@
             <Label x:Name="labelSpecialSymbols" Content="Nr. of special symbols:" Margin="10,0,0,5.09" VerticalAlignment="Bottom" RenderTransformOrigin="-0.471,0.73" HorizontalAlignment="Left" Width="140.993"/>
             <TextBox x:Name="textBoxNrSpecialSymbols" Height="22.95" Margin="156.986,0,234.007,5.09" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
         </Grid>
-        <Grid x:Name="gridSearchPassword" Margin="10,79,21,48">
+        <Grid x:Name="gridSearchPassword" Margin="10,79,21,10" Visibility="Collapsed">
             <Label x:Name="labelSearchedResourse" Content="Resourse name:" HorizontalAlignment="Left" Height="26" Margin="10,10,0,0" VerticalAlignment="Top" Width="96"/>
-            <TextBox x:Name="textBoxSearchResourse" Height="24" Margin="111,12,186,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBoxSearchResourse" PreviewMouseDown="TextBox_MouseDown" Height="24" Margin="111,12,186,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
             <Button x:Name="buttonSearchResourse" Content="Search" HorizontalAlignment="Right" Height="24" Margin="0,12,41,0" VerticalAlignment="Top" Width="116"/>
-            <ListView x:Name="listViewResourses" ItemsSource="{Binding data.Resourses}" Margin="10,71.5,74,49.5" Width="400" >
+            <ListView x:Name="listViewResourses" PreviewMouseLeftButtonUp="listViewResourses_PreviewMouseLeftButtonUp"  ItemsSource="{Binding resourses}" Margin="50,71.5,49,50.5" Width="410" SelectionChanged="listViewResourses_SelectionChanged" >
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding ResourseName}" Header="Resourse name" Width="200"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding ResoursePassword}" Header="Password" Width="200"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding ResourseName}" Header="Resourse name" Width="204"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding ResoursePassword}" Header="Password" Width="204"/>
                     </GridView>
                 </ListView.View>
             </ListView>
             <Label x:Name="labelNotFound" Visibility="Collapsed" Content="" Height="25.5" Margin="10,41,186,0" VerticalAlignment="Top"/>
+            <Button x:Name="buttonUpdatePassword" Content="Update resourse" IsEnabled="False" HorizontalAlignment="Right" Margin="0,0,139,10" VerticalAlignment="Bottom" Width="106"/>
+            <Button x:Name="buttonDeletePassword" Content="Delete resourse" IsEnabled="False" HorizontalAlignment="Right" Height="22.96" Margin="0,0,29,10" VerticalAlignment="Bottom" Width="96"/>
+        </Grid>
+        <Grid x:Name="gridViewAllResourses"  Margin="50,100,50,42">
+            <ListView x:Name="listViewAll" ItemsSource="{Binding data.Resourses}" Margin="10,10,10,19">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding ResourseName}" Header="Resourse name" Width="210"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding ResoursePassword}" Header="Password for resourse" Width="210"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
     </Grid>
 </Window>

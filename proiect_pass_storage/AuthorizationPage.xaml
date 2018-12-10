@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:proiect_pass_storage"
         mc:Ignorable="d"
-        Title="AuthorizationPage" Height="300" Width="300">
+        Icon="Images/lock.png"
+        Title="Login" Height="300" Width="300">
     <Grid>
         <Grid Margin="10,0,10,10" Height="250" VerticalAlignment="Bottom">
             <Label x:Name="passInfoLabel" Content="Hi bro, please authorize!" Height="33" Margin="50,10,50,0" VerticalAlignment="Top"/>

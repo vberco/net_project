@@ -13,3 +13,4 @@ C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\ob
 C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\proiect_pass_storage.csproj.GenerateResource.Cache
 C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\proiect_pass_storage.exe
 C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\proiect_pass_storage.pdb
+C:\Users\user\Desktop\step_proiecte\proiect_pass_storage\proiect_pass_storage\obj\Debug\proiect_pass_storage.csprojResolveAssemblyReference.cache
